@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,  minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover">
+    <!--定义文档视口,防止网页缩放-->
+    <meta name="keywords" content=""><!--网页的关键字信息-->
+    <meta name="description" content=""><!--网页的简介-->
+    <title>标题</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+</head>
+<body>
+<header>
+    <h2 class="title">图书管理系统</h2>
+</header>
+<main id="app">
+    <div class="notice">
+        <div class="notice_title">
+            <span>系统公告:</span>
+        </div>
+        <div class="notice_bottom">
+            <article>
+                系统开发中，敬请期待......
+            </article>
+        </div>
+    </div>
+    <div class="login_input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录名</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入登录名"
+                       autocomplete="off"
+                       class="layui-input" v-model="un">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" id="pwd">密码框</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                       autocomplete="off" class="layui-input" v-model="pwd">
+            </div>
+            <!--            <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份类型</label>
+            <div class="layui-input-block">
+                <select name="loginType" lay-verify="required" v-model="userType">
+                    <option value="0" selected>普通用户</option>
+                    <option value="1">图书管理员</option>
+                    <option value="2">系统管理员</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" @click.stop="submit">立即登录</button>
+                <button type="reset" class="layui-btn layui-btn-primary" @click="reset">重置</button>
+                <button type="reset" class="layui-btn layui-btn-primary">注册</button>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <span>&copy;UTF-8队 版权所有</span>
+</footer>
+<script src="../layui/layui.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script src="../js/jquery-1.11.3.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            un: '',
+            pwd: '',
+            userType: '0'
+        },
+        methods: {
+            submit: () => {
+                location.href = 'home.html'
+                let url = `http://localhost:8080/library/user/login`     // 请求地址
+                // axios.get(`${url}?un=${vm.un}&pwd=${vm.pwd}&userType=${vm.userType}`).then(value => {
+                //     if (true) {
+                //         sessionStorage.setItem('un', vm.un)             // 本地存储,保存用户信息
+                //         sessionStorage.setItem('userType', vm.userType)
+                //     } else {
+                //         alert('用户信息不正确,请重新输入!')
+                //         vm.pwd = ''     //  重置信息
+                //         vm.un = ''
+                //         vm.userType = '0'
+                //     }
+                // })
+            },
+            reset: () => {
+                vm.pwd = ''
+                vm.un = ''
+                vm.userType = '0'
+            }
+        },
+        created: function () {
+
+        }
+    })
+</script>
+</body>
+</html>
